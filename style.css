@@ -87,3 +87,10 @@ body {
 .saturday {
   font-size: 25px;
 }
+.name {
+  position: relative;
+  top: 48px;
+  left: -18px;
+  font-family: "PT Mono", monospace;
+  font-weight: 500;
+}
