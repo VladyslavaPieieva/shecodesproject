@@ -28,8 +28,7 @@ currentTime.innerHTML = currentDate(now);
 
 function displayWeatherCondition(response) {
   document.querySelector("h1").innerHTML = response.data.name;
-  document.querySelector("h2").innerHTML =
-    Math.round(response.data.main.temp) + "°C";
+  document.querySelector("h2").innerHTML = Math.round(celsiusTemperature);
 
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
@@ -43,6 +42,7 @@ function displayWeatherCondition(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  celsiusTemperature = response.data.main.temp;
 }
 
 function searchCity(city) {
@@ -60,22 +60,35 @@ function addCity(event) {
 let form = document.querySelector("#form-input");
 form.addEventListener("submit", addCity);
 
-searchCity("Berdiansk");
+// function convertToCelsius(event) {
+//   event.preventDefault();
+//   let temperatureElement = document.querySelector("h2");
+//   temperatureElement.innerHTML = 19;
+// }
 
-function convertToFahrenheit(event) {
+// let celsiusLink = document.querySelector("#celsius");
+// celsiusLink.addEventListener("click", convertToCelsius);
+function showFahrenheitTemperature(event) {
   event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheittemperature = (celsiusTemperature * 9) / 5 + 32;
   let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = 66;
+  temperatureElement.innerHTML = Math.round(fahrenheittemperature);
 }
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = 19;
-}
+let celsiusTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
+fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
 
+function showCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("h2");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
 let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
+celsiusLink.addEventListener("click", showCelsiusTemperature);
+
+searchCity("Berdiansk");
