@@ -5,8 +5,10 @@ h1 {
 }
 h2 {
   position: relative;
-  top: -175px;
-  left: 531px;
+  /* top: -175px;
+  left: 531px; */
+  top: -173px;
+  left: 684px;
   color: white;
   font-family: "Dancing Script", cursive;
   font-weight: 700;
@@ -14,8 +16,9 @@ h2 {
 
 h3 {
   position: relative;
-  top: -175px;
-  left: 531px;
+  top: -202px;
+  /* left: 531px; */
+  left: 680px;
   color: white;
   font-family: "Dancing Script", cursive;
   font-weight: 700;
@@ -28,17 +31,25 @@ body {
   background-image: url("rain.jpeg");
   padding: 28px 123px;
 }
+img {
+  position: relative;
+  top: -440px;
+  left: 591px;
+}
+
 .humididy {
   position: relative;
   top: -9px;
-  left: 531px;
+  /* left: 531px; */
+  left: 681px;
   color: white;
   font-family: "PT Mono", monospace;
 }
 .wind {
   position: relative;
   top: -22px;
-  left: 531px;
+  /* left: 531px; */
+  left: 683px;
   color: white;
   font-family: "PT Mono", monospace;
 }
@@ -93,4 +104,13 @@ body {
   left: -18px;
   font-family: "PT Mono", monospace;
   font-weight: 500;
+}
+.units {
+  position: relative;
+  top: -219px;
+  left: 762px;
+  /* top: -216px;
+  left: 610px; */
+  color: white;
+  font-size: larger;
 }
