@@ -22,7 +22,8 @@ function currentDate(date) {
   return `${day}, ${hours}:${minutes}`;
 }
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#weather-app");
 
   let forecastHTML = `<div class="row">`;
@@ -57,9 +58,16 @@ let currentTime = document.querySelector("#current-time");
 let now = new Date();
 currentTime.innerHTML = currentDate(now);
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "1ddb506ff016b81ba5c2f0c4b7adf1af";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayWeatherCondition(response) {
   document.querySelector("h1").innerHTML = response.data.name;
-  document.querySelector("h2").innerHTML = Math.round(celsiusTemperature);
+  document.querySelector("h2").innerHTML = Math.round(response.data.main.temp);
 
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
@@ -74,6 +82,8 @@ function displayWeatherCondition(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
   celsiusTemperature = response.data.main.temp;
+
+  getForecast(response.data.coord);
 }
 
 function searchCity(city) {
@@ -124,4 +134,3 @@ let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", showCelsiusTemperature);
 
 searchCity("Berdiansk");
-displayForecast();
