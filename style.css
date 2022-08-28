@@ -24,12 +24,21 @@ h3 {
 p {
   color: white;
 }
-body {
-  background-size: 1391px;
+
+/*  background-size: 1391px;
   background-image: url("rain.jpeg");
   padding: 28px 123px;
+} */
+section {
+  background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+  margin: auto;
+  padding: 28px 123px;
 }
-img {
+
+.weather-forecast-temperature-min {
+  opacity: 0.6;
+}
+.icon {
   position: relative;
   top: -438px;
   left: 591px;
@@ -100,6 +109,7 @@ img {
   left: -18px;
   font-family: "PT Mono", monospace;
   font-weight: 500;
+  color: black;
 }
 .units {
   position: relative;

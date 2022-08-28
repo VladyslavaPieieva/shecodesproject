@@ -22,6 +22,37 @@ function currentDate(date) {
   return `${day}, ${hours}:${minutes}`;
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-app");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tue", "Wed"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      ` 
+         
+            <div class="col-2">
+              <div class="weather-forecast-date">${day}</div>
+              <img
+                src="http://openweathermap.org/img/wn/04n@2x.png"
+                alt=""
+                width="36"
+              />
+              <br />
+              <div class="weather-forecast-temperature">
+                <span class="weather-forecast-temperature-max"> 24° </span>
+                <span class="weather-forecast-temperature-min"> 14° </span>
+              </div>
+            </div>
+   
+            `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let currentTime = document.querySelector("#current-time");
 let now = new Date();
 currentTime.innerHTML = currentDate(now);
@@ -72,11 +103,10 @@ function showFahrenheitTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
-  let fahrenheittemperature = (celsiusTemperature * 9) / 5 + 32;
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = Math.round(fahrenheittemperature);
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
-let celsiusTemperature = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
@@ -88,7 +118,10 @@ function showCelsiusTemperature(event) {
   let temperatureElement = document.querySelector("h2");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
+let celsiusTemperature = null;
+
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", showCelsiusTemperature);
 
 searchCity("Berdiansk");
+displayForecast();
