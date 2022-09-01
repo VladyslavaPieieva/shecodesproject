@@ -6,7 +6,7 @@ function currentDate(date) {
   let minutes = date.getMinutes();
 
   if (minutes < 10) {
-    minutes = `0${hours}`;
+    minutes = `0${minutes}`;
   }
   let days = [
     "Sunday",
@@ -21,29 +21,42 @@ function currentDate(date) {
   let day = days[now.getDay()];
   return `${day}, ${hours}:${minutes}`;
 }
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-app");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Sun", "Mon", "Tue", "Wed"];
-  days.forEach(function (day) {
+
+  forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
-      ` 
-         
-            <div class="col-2">
-              <div class="weather-forecast-date">${day}</div>
+      `     <div class="col-2">
+              <div class="weather-forecast-date">${formatDay(
+                forecastDay.dt
+              )}</div>
               <img
-                src="http://openweathermap.org/img/wn/04n@2x.png"
+                src="http://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png"
                 alt=""
                 width="36"
               />
               <br />
               <div class="weather-forecast-temperature">
-                <span class="weather-forecast-temperature-max"> 24° </span>
-                <span class="weather-forecast-temperature-min"> 14° </span>
+                <span class="weather-forecast-temperature-max"> ${Math.round(
+                  forecastDay.temp.max
+                )}° </span>
+                <span class="weather-forecast-temperature-min"> ${Math.round(
+                  forecastDay.temp.min
+                )}° </span>
               </div>
             </div>
    
@@ -61,7 +74,7 @@ currentTime.innerHTML = currentDate(now);
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "1ddb506ff016b81ba5c2f0c4b7adf1af";
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -109,28 +122,5 @@ form.addEventListener("submit", addCity);
 
 // let celsiusLink = document.querySelector("#celsius");
 // celsiusLink.addEventListener("click", convertToCelsius);
-function showFahrenheitTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-}
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
-
-function showCelsiusTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperatureElement = document.querySelector("h2");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-}
-let celsiusTemperature = null;
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", showCelsiusTemperature);
 
 searchCity("Berdiansk");
