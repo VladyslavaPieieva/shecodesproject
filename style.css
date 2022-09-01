@@ -46,9 +46,10 @@ body {
 }
 .icon {
   position: relative;
-  top: -464px;
-  left: 836px;
+    top: -378px;
+    left: 836px;
 }
+
 
 .humididy {
   position: relative;
